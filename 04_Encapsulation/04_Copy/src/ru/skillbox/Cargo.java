@@ -18,7 +18,7 @@ public class Cargo {
         this.fragile = fragile;
     }
 
-    public Cargo seiSize(Dimensions size) {
+    public Cargo setSize(Dimensions size) {
         return new Cargo(size, weight,
                 address, notFlip, registrationNumber, fragile);
     }
@@ -57,5 +57,14 @@ public class Cargo {
         return fragile;
     }
 
-
+    public String toString() {
+        return "Cargo{" +
+                "размер =" + size +
+                ", масса =" + weight +
+                ", адрес ='" + address + '\'' +
+                ", переворачивать =" + notFlip +
+                ", регистрационный номер='" + registrationNumber + '\'' +
+                ", хрупкое=" + fragile +
+                '}';
+    }
 }

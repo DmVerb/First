@@ -17,5 +17,12 @@ public class Dimensions {
         return volume;
     }
 
-
+    public String toString() {
+        return "(" +
+                "ширина=" + width +
+                ", высота =" + height +
+                ", длина =" + length +
+                ", объем =" + getVolume() +
+                ')';
+    }
 }
