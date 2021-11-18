@@ -10,14 +10,10 @@ public class ArithmeticCalculator {
     }
 
     public void calculate(Operation type) {
-        if (type == Operation.ADD) {
-            System.out.println(number1 + number2);
-        }
-        if (type == Operation.SUBTRACT) {
-            System.out.println(number1 - number2);
-        }
-        if (type == Operation.MULTIPLY) {
-            System.out.println(number1 * number2);
+        switch (type) {
+            case ADD -> System.out.println(number1 + number2);
+            case SUBTRACT -> System.out.println(number1 - number2);
+            case MULTIPLY -> System.out.println(number1 * number2);
         }
     }
 }
