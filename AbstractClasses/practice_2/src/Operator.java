@@ -1,17 +1,8 @@
 public class Operator implements Employee {
-    private double salary;
-
-    public Operator() {
-        salary = 50000;
-    }
+    private final int salary = 50000;
 
     @Override
-    public String toString() {
-        return salary + " руб. \n";
-    }
-
-    @Override
-    public double getMoneySalary() {
+    public int getMoneySalary() {
         return salary;
     }
 }

@@ -1,25 +1,25 @@
 public class Manager implements Employee {
 
-    private double salary = 50000.0;
+    private int salary = 50000;
+    private int monthIncome;
 
-    private final double bonus = 0.05;
+    private static final double bonus = 0.05;
 
-    private final int minMonthIncome = 115_000;
-    private final int maxMonthIncome = 140_000;
+    private static final int minMonthIncome = 115_000;
+    private static final int maxMonthIncome = 140_000;
 
     public Manager() {
-        double monthIncome = Math.round(Math.random() * (maxMonthIncome - minMonthIncome) + minMonthIncome);
+        monthIncome = (int) Math.round(Math.random() * (maxMonthIncome - minMonthIncome) + minMonthIncome);
         salary += monthIncome * bonus;
-        Company.allMonthIncome += monthIncome;
+        monthIncome += monthIncome;
+    }
+
+    public double getSales() {
+        return monthIncome;
     }
 
     @Override
-    public String toString() {
-        return salary + " руб. \n";
-    }
-
-    @Override
-    public double getMoneySalary() {
+    public int getMoneySalary() {
         return salary;
     }
 }

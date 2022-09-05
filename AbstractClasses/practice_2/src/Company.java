@@ -1,92 +1,56 @@
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
+import java.util.*;
 
 public class Company {
-    String name;
-    ArrayList<Employee> employees = new ArrayList<>();
-    public static double allMonthIncome;
 
-    public Company(String name) {
-        this.name = name;
-        allMonthIncome = 0;
-    }
-
-    public Company(String name, int operator, int manager, int topManager) {
-        this.name = name;
-        for (int i = 0; i < operator; i++) {
-            hire(new Operator());
-        }
-        for (int i = 0; i < manager; i++) {
-            hire(new Manager());
-        }
-        for (int i = 0; i < topManager; i++) {
-            hire(new TopManager());
-        }
-        allMonthIncome = 0;
-    }
-
-
-    public ArrayList<Employee> getTopSalaryStaff(int count) {
-        ArrayList<Employee> sortList = new ArrayList<>(employees);
-        Collections.sort(sortList, new Comparator<Employee>() {
-            public int compare(Employee o1, Employee o2) {
-                return (int) (o1.getMoneySalary() - o2.getMoneySalary());
-            }
-        });
-        Collections.reverse(sortList);
-        ArrayList<Employee> result = new ArrayList<Employee>();
-        for (int i = 0; i < count; i++) {
-            result.add(sortList.get(i));
-        }
-        return result;
-    }
-
-    public ArrayList<Employee> getLowestSalaryStaff(int count) {
-        ArrayList<Employee> sortList = new ArrayList<>(employees);
-        Collections.sort(sortList, new Comparator<Employee>() {
-            public int compare(Employee o1, Employee o2) {
-                return (int) (o1.getMoneySalary() - o2.getMoneySalary());
-            }
-        });
-        ArrayList<Employee> result = new ArrayList<Employee>();
-        for (int i = 0; i < count; i++) {
-            result.add(sortList.get(i));
-        }
-        return result;
-    }
+    private final List<Employee> employees = new ArrayList<>();
 
     public ArrayList<Employee> getEmployees() {
-        return employees;
+        return new ArrayList<>(employees);
     }
+
+
+    public List<Employee> getTopSalaryStaff(int count) {
+        return getList(count, Comparator.reverseOrder());
+    }
+
+    public List<Employee> getLowestSalaryStaff(int count) {
+        return getList(count, Comparator.naturalOrder());
+    }
+
+    private List<Employee> getList(int count, Comparator<Employee> cmp) {
+        if (count < 0) {
+            return Collections.emptyList();
+        }
+        if (count > employees.size()) {
+            count = employees.size();
+        }
+        employees.sort(cmp);
+        return new ArrayList<>(employees.subList(0, count));
+    }
+
 
     public void hire(Employee employee) {
         employees.add(employee);
     }
 
-    public void hireAll(Collection<Employee> employes) {
-        employees.addAll(employes);
+    public void hireAll(Collection<Employee> employeeList) {
+        for (Employee a : employeeList) {
+            hire(a);
+        }
     }
 
     public void fire(Employee employee) {
         employees.remove(employee);
     }
 
-    public void fire50Percent() {
-        int i = employees.size();
-        for (int j = employees.size(); j >= 0; j--) {
-            if (j % 2 == 0)
-                employees.remove(employees.get(j));
+    public int getIncome() {
+        int income = 0;
+        for (Employee e : employees) {
+            if (e instanceof Manager) {
+                income += ((Manager) e).getSales();
+            }
         }
+        return income;
     }
 
-    public double getIncome() {
-        return allMonthIncome;
-    }
-
-    @Override
-    public String toString() {
-        return "Company " + name + ", ЗП сотрудников " + employees.toString();
-    }
 }

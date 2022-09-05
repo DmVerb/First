@@ -1,23 +1,17 @@
 public class TopManager implements Employee {
 
-    private double fixedSalary = 150000;
+    private final static int fixedSalary = 150000;
+    private final Company company;
 
-    private final double bonus = 1.5;
+    public TopManager(Company company) {
+        this.company = company;
+    }
 
-    public  TopManager() {
-        if (Company.allMonthIncome > 1000000) {
-            fixedSalary += fixedSalary * bonus;
-        }else {
+    @Override
+    public int getMoneySalary() {
+        if (company.getIncome() > 1000000) {
+            return (int) (fixedSalary * 1.5);
         }
-    }
-
-    @Override
-    public String toString() {
-        return fixedSalary + " руб.\n" ;
-    }
-
-    @Override
-    public double getMoneySalary() {
         return fixedSalary;
     }
 }
