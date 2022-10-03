@@ -40,7 +40,7 @@ public class Main {
             }
         }
         catch (ArrayIndexOutOfBoundsException | ArrayStoreException ex) {
-            logger.fatal("Fatal error",ex);
+            logger.error("Fatal error",ex);
             System.out.println(ex);
         }
 
